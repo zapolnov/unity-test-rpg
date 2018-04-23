@@ -1,2 +1,5 @@
+/.vs
 /[Ll]ibrary
 /[Tt]emp
+*.sln
+*.csproj
