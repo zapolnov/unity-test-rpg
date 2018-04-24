@@ -8,10 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18d02512d511c0a459a4593871fec50e, type: 3}
-  m_Name: Skeleton
+  m_Script: {fileID: 11500000, guid: dc28b6e559993e242932c47f9772e88a, type: 3}
+  m_Name: Player
   m_EditorClassIdentifier: 
-  health: 100
-  armor: 5
-  damage: 5
-  givesExp: 100
+  strafeSpeed: 5
+  forwardSpeed: 5
+  baseHealth: 100
+  baseArmor: 1
+  baseDamage: 5
+  healthMultiplier: 10
+  armorMultiplier: 1
+  damageMultiplier: 1

@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 54952316946469918}
   - component: {fileID: 136695408483805282}
   - component: {fileID: 114485346805567824}
+  - component: {fileID: 114202892384113736}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -458,13 +459,13 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1134982457617556}
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 5, z: -4}
+  m_LocalRotation: {x: 0.17364816, y: 0, z: 0, w: 0.9848078}
+  m_LocalPosition: {x: 0, y: 4, z: -4}
   m_LocalScale: {x: 0.666666, y: 0.666666, z: 0.666666}
   m_Children: []
   m_Father: {fileID: 4345066484590980}
   m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 20, y: 0, z: 0}
 --- !u!4 &4152566804051860
 Transform:
   m_ObjectHideFlags: 1
@@ -906,6 +907,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114202892384113736
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1774890833216316}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 26555e20f69ed534989ac3ac7304f85f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114485346805567824
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -917,8 +929,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2bd8d53729b2a1744bac39457fe062a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  strafeSpeed: 5
-  forwardSpeed: 5
 --- !u!124 &124623775819647154
 Behaviour:
   m_ObjectHideFlags: 1

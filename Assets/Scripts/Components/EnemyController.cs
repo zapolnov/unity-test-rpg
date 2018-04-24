@@ -3,9 +3,9 @@ using UnityEngine;
 
 namespace Game
 {
-    public class Character : MonoBehaviour
+    public class EnemyController : MonoBehaviour
     {
-        public CharacterDefinition definition;
+        public EnemyDefinition definition;
 
         private void Awake()
         {

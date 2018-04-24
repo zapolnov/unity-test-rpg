@@ -4,9 +4,8 @@ using UnityEngine;
 namespace Game
 {
     [CreateAssetMenu]
-    public class CharacterDefinition : ScriptableObject
+    public class EnemyDefinition : ScriptableObject
     {
-        public int level;
         public float health;
         public float armor;
         public float damage;
