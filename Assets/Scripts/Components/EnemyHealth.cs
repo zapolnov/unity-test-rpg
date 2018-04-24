@@ -22,5 +22,10 @@ namespace Game
         {
             return health;
         }
+
+        public override void ApplyDamage(float damage)
+        {
+            health -= damage;
+        }
     }
 }

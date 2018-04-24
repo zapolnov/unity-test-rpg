@@ -40,5 +40,13 @@ namespace Game
             mAnimator.SetFloat("speed", mRigidBody.velocity.magnitude);
             mAnimator.SetBool("attack", mAttacking);
         }
+
+        public bool WeaponColliderIsActive()
+        {
+            // Collision checks should be activated only when sword is "falling" over the enemy, but not when it is
+            // being raised or when player is standing still
+            var currentAnim = mAnimator.GetCurrentAnimatorStateInfo(0);
+            return (currentAnim.IsName("Attack") && currentAnim.normalizedTime >= 0.1f);
+        }
     }
 }
