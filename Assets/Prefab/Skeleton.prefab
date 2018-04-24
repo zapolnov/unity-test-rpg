@@ -673,6 +673,8 @@ GameObject:
   - component: {fileID: 4523021057511362}
   - component: {fileID: 95606943501910122}
   - component: {fileID: 195142325963545666}
+  - component: {fileID: 114666335682268590}
+  - component: {fileID: 136540032320612866}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -1526,6 +1528,31 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114666335682268590
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1941485810895836}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0788b66499a90bf49b688f382f93744a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  definition: {fileID: 11400000, guid: 79bfdccd137e82c43be868b4c1722d82, type: 2}
+--- !u!136 &136540032320612866
+CapsuleCollider:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1941485810895836}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 2
+  m_Height: 7
+  m_Direction: 1
+  m_Center: {x: 0, y: 3.5, z: 0}
 --- !u!137 &137705831599060016
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
