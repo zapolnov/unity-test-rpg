@@ -814,6 +814,9 @@ MonoBehaviour:
     level: 0
     health: 0
   playerDefinition: {fileID: 11400000, guid: b51ea8b5f68981d4aaad4aada0de4f27, type: 2}
+  particleManager:
+    bloodParticlesPrefab: {fileID: 198074173839814146, guid: 158b95ecf2695864880c5c264c31a69f,
+      type: 2}
 --- !u!4 &1329323047
 Transform:
   m_ObjectHideFlags: 0

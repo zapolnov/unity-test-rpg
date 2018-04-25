@@ -63,6 +63,10 @@ namespace Game
             }
 
             health.ApplyDamage(damage);
+
+            Collider collider = gameObject.GetComponent<Collider>();
+            Vector3 position = collider.ClosestPointOnBounds(transform.position);
+            GameController.Instance.particleManager.SpawnBloodParticles(position);
         }
     }
 }

@@ -8,6 +8,7 @@ namespace Game
     {
         public PlayerState playerState = new PlayerState();
         public PlayerDefinition playerDefinition;
+        public ParticleManager particleManager = new ParticleManager();
 
         private static GameController mInstance;
         public static GameController Instance {
@@ -33,8 +34,15 @@ namespace Game
 
         private void OnDestroy()
         {
+            particleManager.Clear();
+
             if (mInstance == this)
                 mInstance = null;
+        }
+
+        private void Update()
+        {
+            particleManager.Update();
         }
     }
 }
