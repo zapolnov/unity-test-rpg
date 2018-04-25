@@ -9,6 +9,7 @@ namespace Game
         public PlayerState playerState = new PlayerState();
         public PlayerDefinition playerDefinition;
         public ParticleManager particleManager = new ParticleManager();
+        public PlayerController playerController;
 
         private static GameController mInstance;
         public static GameController Instance {

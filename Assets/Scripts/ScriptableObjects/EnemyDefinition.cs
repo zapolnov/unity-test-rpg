@@ -9,6 +9,8 @@ namespace Game
         public float health;
         public float armor;
         public float damage;
+        public float walkSpeed;
+        public float runSpeed;
         public float givesExp;
     }
 }

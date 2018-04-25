@@ -15,12 +15,16 @@ namespace Game
 
             public void Clear()
             {
-                foreach (var system in mInactive)
-                    GameObject.Destroy(system.gameObject);
+                foreach (var system in mInactive) {
+                    if (system != null)
+                        GameObject.Destroy(system.gameObject);
+                }
                 mInactive.Clear();
 
-                foreach (var system in mActive)
-                    GameObject.Destroy(system.gameObject);
+                foreach (var system in mActive) {
+                    if (system != null)
+                        GameObject.Destroy(system.gameObject);
+                }
                 mActive.Clear();
             }
 

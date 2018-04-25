@@ -11,6 +11,7 @@ namespace Game
 
         void Start()
         {
+            GameController.Instance.playerController = this;
             mAnimator = GetComponent<Animator>();
             mRigidBody = GetComponent<Rigidbody>();
         }

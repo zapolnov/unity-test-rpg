@@ -817,6 +817,7 @@ MonoBehaviour:
   particleManager:
     bloodParticlesPrefab: {fileID: 198074173839814146, guid: 158b95ecf2695864880c5c264c31a69f,
       type: 2}
+  playerController: {fileID: 0}
 --- !u!4 &1329323047
 Transform:
   m_ObjectHideFlags: 0

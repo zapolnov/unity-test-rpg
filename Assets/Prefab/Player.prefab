@@ -355,6 +355,7 @@ GameObject:
   - component: {fileID: 95556138345493140}
   - component: {fileID: 54952316946469918}
   - component: {fileID: 136695408483805282}
+  - component: {fileID: 195363707547033554}
   - component: {fileID: 114485346805567824}
   - component: {fileID: 114202892384113736}
   - component: {fileID: 114813894847064632}
@@ -925,7 +926,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.2, y: 0.01, z: 0.8}
+  m_Size: {x: 0.2, y: 0.01, z: 1.2}
   m_Center: {x: -0.07, y: 0.04, z: 0.53}
 --- !u!81 &81262427438037262
 AudioListener:
@@ -1080,3 +1081,24 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.07668215, y: 0.20266843, z: 0.10606074}
     m_Extent: {x: 0.80979764, y: 0.7373841, z: 0.9799017}
   m_DirtyAABB: 0
+--- !u!195 &195363707547033554
+NavMeshAgent:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1774890833216316}
+  m_Enabled: 1
+  m_AgentTypeID: 0
+  m_Radius: 0.75
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 4294967295
+  m_ObstacleAvoidanceType: 4
