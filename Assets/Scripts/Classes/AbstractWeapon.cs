@@ -1,19 +1,18 @@
 ﻿
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Game
 {
     public abstract class AbstractWeapon : MonoBehaviour
     {
-        private bool mDidCollide;
-        private bool mTriggerEntered;
+        private readonly HashSet<GameObject> mObjectsHit = new HashSet<GameObject>();
 
         public abstract bool ColliderIsActive();
         public abstract float Damage();
 
         private void OnTriggerEnter(Collider other)
         {
-            mTriggerEntered = true;
             CheckCollision(other.gameObject);
         }
 
@@ -24,20 +23,19 @@ namespace Game
 
         private void OnTriggerExit(Collider other)
         {
-            mTriggerEntered = false;
         }
 
         private void Update()
         {
-            if (mDidCollide && !mTriggerEntered && !ColliderIsActive())
-                mDidCollide = false;
+            if (mObjectsHit.Count > 0 && !ColliderIsActive())
+                mObjectsHit.Clear();
         }
 
         private void CheckCollision(GameObject victim)
         {
-            if (mDidCollide)
-                return;
             if (!ColliderIsActive())
+                return;
+            if (mObjectsHit.Contains(victim))
                 return;
 
             var health = victim.GetComponent<AbstractHealthComponent>();
@@ -52,7 +50,7 @@ namespace Game
                 t = t.parent;
             } while (t != null);
 
-            mDidCollide = true;
+            mObjectsHit.Add(victim);
             float damage = Damage();
 
             var armor = victim.GetComponent<AbstractArmor>();
