@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Game
 {
-    public class EnemyController : MonoBehaviour
+    public class SkeletonController : MonoBehaviour
     {
         public EnemyDefinition definition;
 
