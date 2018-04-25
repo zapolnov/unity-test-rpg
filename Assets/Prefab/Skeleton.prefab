@@ -1610,7 +1610,7 @@ Animator:
   m_GameObject: {fileID: 1941485810895836}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: a58154c350c4ccf47a6cdad03a8dca1a, type: 3}
-  m_Controller: {fileID: 9100000, guid: 6e092ad3d6b50a14bac692ea833c646a, type: 2}
+  m_Controller: {fileID: 9100000, guid: f0034c43e5e28554fb522461d83e19a3, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 1
@@ -1793,6 +1793,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   definition: {fileID: 11400000, guid: 79bfdccd137e82c43be868b4c1722d82, type: 2}
   state: 0
+  indicators: {fileID: 1565906750272764}
   attackDistance: 10
 --- !u!114 &114700217232696122
 MonoBehaviour:
@@ -1918,7 +1919,7 @@ NavMeshAgent:
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0.75
+  m_StoppingDistance: 0.7
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1

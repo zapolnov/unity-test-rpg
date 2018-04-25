@@ -15,7 +15,7 @@ MonoBehaviour:
   forwardSpeed: 5
   baseHealth: 100
   baseArmor: 1
-  baseDamage: 10
+  baseDamage: 20
   healthMultiplier: 10
   armorMultiplier: 1
   damageMultiplier: 1

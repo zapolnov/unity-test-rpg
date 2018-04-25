@@ -11,6 +11,7 @@ namespace Game
             Idle,
             MovingToPosition,
             FollowingObject,
+            Dead,
         }
 
         public EnemyDefinition definition;
@@ -30,6 +31,9 @@ namespace Game
         protected virtual void Update()
         {
             switch (state) {
+                case State.Dead:
+                    break;
+
                 case State.Idle:
                     mNavMeshAgent.isStopped = true;
                     break;
@@ -45,14 +49,35 @@ namespace Game
             }
         }
 
+        public abstract void onHit();
+        public abstract void onDie();
+
         public void SetIdle()
         {
+            if (state == State.Dead)
+                return;
+
             state = State.Idle;
             mNavMeshAgent.isStopped = true;
         }
 
+        public void SetDead()
+        {
+            state = State.Dead;
+
+            mNavMeshAgent.isStopped = true;
+            mNavMeshAgent.enabled = false;
+
+            var collider = GetComponent<Collider>();
+            if (collider != null)
+                collider.enabled = false;
+        }
+
         private void MoveTo(Vector3 destination, float speed, State newState = State.MovingToPosition)
         {
+            if (state == State.Dead)
+                return;
+
             state = newState;
             mTargetPosition = destination;
             mNavMeshAgent.speed = speed;

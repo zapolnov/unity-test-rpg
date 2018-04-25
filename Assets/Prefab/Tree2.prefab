@@ -21,8 +21,6 @@ GameObject:
   - component: {fileID: 4449800295963614}
   - component: {fileID: 33423259481014258}
   - component: {fileID: 23269914345612006}
-  - component: {fileID: 95927751620757988}
-  - component: {fileID: 208185941573823258}
   - component: {fileID: 136301317073826456}
   m_Layer: 0
   m_Name: Tree2
@@ -85,23 +83,6 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1654323740968358}
   m_Mesh: {fileID: 4300000, guid: c869d248c07099445b26f966a64c3672, type: 3}
---- !u!95 &95927751620757988
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1654323740968358}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: c869d248c07099445b26f966a64c3672, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
 --- !u!136 &136301317073826456
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -115,18 +96,3 @@ CapsuleCollider:
   m_Height: 5.446314
   m_Direction: 1
   m_Center: {x: -0.006924987, y: 2.718274, z: 0.03555137}
---- !u!208 &208185941573823258
-NavMeshObstacle:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1654323740968358}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Shape: 0
-  m_Extents: {x: 1.7960001, y: 2.723, z: 1.7960001}
-  m_MoveThreshold: 0.1
-  m_Carve: 1
-  m_CarveOnlyStationary: 1
-  m_Center: {x: -0.007, y: 2.7180002, z: 0.036000002}
-  m_TimeToStationary: 0.5

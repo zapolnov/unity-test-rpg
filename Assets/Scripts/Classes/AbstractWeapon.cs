@@ -64,6 +64,14 @@ namespace Game
 
             health.ApplyDamage(damage);
 
+            AbstractEnemy enemy = victim.GetComponent<AbstractEnemy>();
+            if (enemy != null) {
+                if (health.CurrentHealth() <= 0.0f)
+                    enemy.onDie();
+                else
+                    enemy.onHit();
+            }
+
             Collider collider = gameObject.GetComponent<Collider>();
             Vector3 position = collider.ClosestPointOnBounds(transform.position);
             GameController.Instance.particleManager.SpawnBloodParticles(position);

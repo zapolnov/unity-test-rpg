@@ -5,7 +5,9 @@ namespace Game
 {
     public class SkeletonController : AbstractEnemy
     {
+        public GameObject indicators;
         public float attackDistance;
+
         private bool mRunningToPlayer;
 
         private Animator mAnimator;
@@ -18,6 +20,9 @@ namespace Game
         protected override void Update()
         {
             base.Update();
+
+            if (state == State.Dead)
+                return;
 
             var player = GameController.Instance.playerController;
             if ((player.transform.position - transform.position).sqrMagnitude <= attackDistance * attackDistance) {
@@ -32,7 +37,24 @@ namespace Game
                 }
             }
 
-            mAnimator.SetFloat("speedh", MovingSpeed());
+            mAnimator.SetFloat("speed", MovingSpeed() * 0.5f);
+        }
+
+        public override void onHit()
+        {
+            if (state == State.Dead)
+                return;
+
+            mAnimator.ResetTrigger("hit");
+            mAnimator.SetTrigger("hit");
+        }
+
+        public override void onDie()
+        {
+            SetDead();
+            indicators.SetActive(false);
+            mAnimator.ResetTrigger("hit");
+            mAnimator.SetTrigger("dead");
         }
     }
 }
