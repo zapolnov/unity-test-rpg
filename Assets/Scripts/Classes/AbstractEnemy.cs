@@ -69,8 +69,9 @@ namespace Game
             }
         }
 
-        public abstract void onHit();
-        public abstract void onDie();
+        public abstract void OnHit();
+        public abstract void OnDie();
+        public abstract bool WeaponColliderIsActive();
 
         protected void LookAt(Vector3 targetPosition)
         {

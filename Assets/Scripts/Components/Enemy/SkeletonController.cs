@@ -59,7 +59,7 @@ namespace Game
             mAnimator.SetBool("attack", mAttacking);
         }
 
-        public override void onHit()
+        public override void OnHit()
         {
             if (state == State.Dead)
                 return;
@@ -68,12 +68,20 @@ namespace Game
             mAnimator.SetTrigger("hit");
         }
 
-        public override void onDie()
+        public override void OnDie()
         {
             SetDead();
             indicators.SetActive(false);
             mAnimator.ResetTrigger("hit");
             mAnimator.SetTrigger("dead");
+        }
+
+        public override bool WeaponColliderIsActive()
+        {
+            // Collision checks should be activated only when sword is "falling" over the player, but not when it is
+            // being raised or when skeleton is standing still
+            var currentAnim = mAnimator.GetCurrentAnimatorStateInfo(0);
+            return (currentAnim.IsName("Attack") && currentAnim.normalizedTime >= 0.1f);
         }
     }
 }

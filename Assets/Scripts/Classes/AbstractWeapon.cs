@@ -65,9 +65,9 @@ namespace Game
             AbstractEnemy enemy = victim.GetComponent<AbstractEnemy>();
             if (enemy != null) {
                 if (health.CurrentHealth() <= 0.0f)
-                    enemy.onDie();
+                    enemy.OnDie();
                 else
-                    enemy.onHit();
+                    enemy.OnHit();
             }
 
             Collider collider = gameObject.GetComponent<Collider>();
