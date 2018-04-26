@@ -67,6 +67,7 @@ GameObject:
   - component: {fileID: 20490322887294496}
   - component: {fileID: 124623775819647154}
   - component: {fileID: 81262427438037262}
+  - component: {fileID: 45022824754611536}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: Untagged
@@ -902,6 +903,14 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!45 &45022824754611536
+Skybox:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1134982457617556}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 5c378e2ef25ab334a88daa47d032b24b, type: 2}
 --- !u!54 &54952316946469918
 Rigidbody:
   m_ObjectHideFlags: 1
@@ -1026,9 +1035,9 @@ CapsuleCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
-  m_Height: 1.6
+  m_Height: 1.4
   m_Direction: 1
-  m_Center: {x: 0, y: 0.8, z: 0}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!137 &137862230051939382
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 1
