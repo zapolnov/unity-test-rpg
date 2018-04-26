@@ -70,7 +70,7 @@ namespace Game
                     enemy.OnHit();
             }
 
-            Collider collider = gameObject.GetComponent<Collider>();
+            Collider collider = victim.GetComponent<Collider>();
             Vector3 position = collider.ClosestPointOnBounds(transform.position);
             GameController.Instance.particleManager.SpawnBloodParticles(position);
         }
