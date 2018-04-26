@@ -15,5 +15,5 @@ MonoBehaviour:
   armor: 5
   damage: 5
   walkSpeed: 2
-  runSpeed: 4
+  runSpeed: 8
   givesExp: 100

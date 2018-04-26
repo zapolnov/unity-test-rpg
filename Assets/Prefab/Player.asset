@@ -11,8 +11,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dc28b6e559993e242932c47f9772e88a, type: 3}
   m_Name: Player
   m_EditorClassIdentifier: 
-  strafeSpeed: 5
-  forwardSpeed: 5
+  strafeSpeed: 10
+  forwardSpeed: 10
   baseHealth: 100
   baseArmor: 1
   baseDamage: 20

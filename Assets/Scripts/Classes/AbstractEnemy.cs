@@ -10,6 +10,7 @@ namespace Game
         {
             Idle,
             MovingToPosition,
+            MovingToOriginalPosition,
             FollowingObject,
             Dead,
         }
@@ -18,6 +19,7 @@ namespace Game
         public State state = State.Idle;
 
         private Vector3 mOriginalPosition;
+        private Quaternion mOriginalRotation;
         private NavMeshAgent mNavMeshAgent;
         private Vector3 mTargetPosition;    // used if state is MovingToPosition
         private GameObject mTargetObject;   // used if state is FollowingObject
@@ -26,6 +28,7 @@ namespace Game
         {
             mNavMeshAgent = GetComponent<NavMeshAgent>();
             mOriginalPosition = transform.position;
+            mOriginalRotation = transform.rotation;
         }
 
         protected virtual void Update()
@@ -39,18 +42,45 @@ namespace Game
                     break;
 
                 case State.MovingToPosition:
-                    if ((mTargetPosition - transform.position).sqrMagnitude < 0.1f)
+                    if ((mTargetPosition - transform.position).sqrMagnitude < 0.1f || MovingSpeed() < 0.000001f)
                         SetIdle();
+                    break;
+
+                case State.MovingToOriginalPosition:
+                    if ((mOriginalPosition - transform.position).sqrMagnitude < 0.1f || MovingSpeed() < 0.000001f) {
+                        mNavMeshAgent.updateRotation = false;
+                        transform.rotation = Quaternion.Slerp(transform.rotation, mOriginalRotation, 0.1f);
+                        if (Mathf.Abs(Quaternion.Angle(transform.rotation, mOriginalRotation)) < 0.1f) {
+                            mNavMeshAgent.updateRotation = true;
+                            SetIdle();
+                        }
+                    }
                     break;
 
                 case State.FollowingObject:
                     mNavMeshAgent.SetDestination(CalcTargetPosition(mTargetObject));
+                    if (MovingSpeed() > 0.0f)
+                        mNavMeshAgent.updateRotation = true;
+                    else {
+                        mNavMeshAgent.updateRotation = false;
+                        LookAt(mNavMeshAgent.destination);
+                    }
                     break;
             }
         }
 
         public abstract void onHit();
         public abstract void onDie();
+
+        protected void LookAt(Vector3 targetPosition)
+        {
+            Vector3 direction = targetPosition - transform.position;
+            direction.y = 0;
+            if (direction.sqrMagnitude > 0.0f) {
+                Quaternion rotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Slerp(transform.rotation, rotation, 0.1f);
+            }
+        }
 
         public void SetIdle()
         {
@@ -83,6 +113,7 @@ namespace Game
             mNavMeshAgent.speed = speed;
             mNavMeshAgent.SetDestination(destination);
             mNavMeshAgent.isStopped = false;
+            mNavMeshAgent.updateRotation = true;
         }
 
         private Vector3 CalcTargetPosition(GameObject targetObject)
@@ -110,8 +141,12 @@ namespace Game
         public void WalkTo(GameObject targetObject) { MoveTo(targetObject, definition.walkSpeed); }
         public void RunTo(GameObject targetObject) { MoveTo(targetObject, definition.runSpeed); }
 
-        public void WalkToOriginalPosition() { WalkTo(mOriginalPosition); }
         public void RunToPlayer() { RunTo(GameController.Instance.playerController.gameObject); }
+
+        public void WalkToOriginalPosition()
+        {
+            MoveTo(mOriginalPosition, definition.walkSpeed, State.MovingToOriginalPosition);
+        }
 
         protected float MovingSpeed()
         {

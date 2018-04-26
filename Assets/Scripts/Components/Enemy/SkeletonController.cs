@@ -40,6 +40,7 @@ namespace Game
             if (mAttacking) {
                 mRunningToPlayer = false;
                 SetIdle();
+                LookAt(player.transform.position);
             }  else {
                 if (sqrDistanceToPlayer <= approachDistance * approachDistance) {
                     if (!mRunningToPlayer) {
