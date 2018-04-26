@@ -951,6 +951,10 @@ MonoBehaviour:
   particleManager:
     bloodParticlesPrefab: {fileID: 198074173839814146, guid: 158b95ecf2695864880c5c264c31a69f,
       type: 2}
+    greenBloodParticlesPrefab: {fileID: 198074173839814146, guid: 513dd6629d0e21a4fa40d4646c3556cd,
+      type: 2}
+    skeletonParticlesPrefab: {fileID: 198074173839814146, guid: a41ad4db28c68304899e249904f9b9a7,
+      type: 2}
   playerController: {fileID: 0}
 --- !u!4 &1329323047
 Transform:

@@ -65,12 +65,18 @@ namespace Game
         }
 
         public ParticleSystem bloodParticlesPrefab;
+        public ParticleSystem greenBloodParticlesPrefab;
+        public ParticleSystem skeletonParticlesPrefab;
 
         private ParticleSet mBloodParticles = new ParticleSet();
+        private ParticleSet mGreenBloodParticles = new ParticleSet();
+        private ParticleSet mSkeletonParticles = new ParticleSet();
 
         public void Clear()
         {
             mBloodParticles.Clear();
+            mGreenBloodParticles.Clear();
+            mSkeletonParticles.Clear();
         }
 
         public void SpawnBloodParticles(Vector3 position)
@@ -78,9 +84,21 @@ namespace Game
             mBloodParticles.Spawn(position, bloodParticlesPrefab);
         }
 
+        public void SpawnGreenBloodParticles(Vector3 position)
+        {
+            mGreenBloodParticles.Spawn(position, greenBloodParticlesPrefab);
+        }
+
+        public void SpawnSkeletonParticles(Vector3 position)
+        {
+            mSkeletonParticles.Spawn(position, skeletonParticlesPrefab);
+        }
+
         public void Update()
         {
             mBloodParticles.Update();
+            mGreenBloodParticles.Update();
+            mSkeletonParticles.Update();
         }
     }
 }

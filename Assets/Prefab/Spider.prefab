@@ -661,6 +661,7 @@ GameObject:
   - component: {fileID: 114290803460560976}
   - component: {fileID: 114644378280573968}
   - component: {fileID: 114014099270911750}
+  - component: {fileID: 114229907897093678}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Untagged
@@ -2254,6 +2255,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyDefinition: {fileID: 11400000, guid: e06ef666af3fe784dbe68e2331b33b0c, type: 2}
+--- !u!114 &114229907897093678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1532871047463206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28c16176cb461ff4681a596e92b51fe7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114290803460560976
 MonoBehaviour:
   m_ObjectHideFlags: 1
