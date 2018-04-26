@@ -1,5 +1,6 @@
 ﻿
 using UnityEngine;
+using UnityEngine.AI;
 
 namespace Game
 {
@@ -14,6 +15,7 @@ namespace Game
             GameController.Instance.playerController = this;
             mAnimator = GetComponent<Animator>();
             mRigidBody = GetComponent<Rigidbody>();
+            GetComponent<NavMeshAgent>().updateRotation = false;
         }
 
         void FixedUpdate()
@@ -27,6 +29,10 @@ namespace Game
                         mAttacking = false;
                 }
             }
+
+            // Mouse look
+            const float coeff = 5.0f;
+            transform.Rotate(new Vector3(Input.GetAxis("Mouse Y"), Input.GetAxis("Mouse X")) * coeff);
 
             if (mAttacking) {
                 mRigidBody.velocity = new Vector3();
