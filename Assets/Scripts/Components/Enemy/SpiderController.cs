@@ -9,14 +9,8 @@ namespace Game
         public float approachDistance;
         public float attackDistance;
 
-        private Animator mAnimator;
         private bool mRunningToPlayer;
         private bool mAttacking;
-
-        void Start()
-        {
-            mAnimator = GetComponent<Animator>();
-        }
 
         protected override void Update()
         {
@@ -79,7 +73,7 @@ namespace Game
         public override bool WeaponColliderIsActive()
         {
             // Collision checks should be activated only when sword is "falling" over the player, but not when it is
-            // being raised or when skeleton is standing still
+            // being raised or when spider is standing still
             var currentAnim = mAnimator.GetCurrentAnimatorStateInfo(0);
             return (currentAnim.IsName("Attack") && currentAnim.normalizedTime >= 0.1f);
         }

@@ -9,14 +9,8 @@ namespace Game
         public float approachDistance;
         public float attackDistance;
 
-        private Animator mAnimator;
         private bool mRunningToPlayer;
         private bool mAttacking;
-
-        void Start()
-        {
-            mAnimator = GetComponent<Animator>();
-        }
 
         protected override void Update()
         {

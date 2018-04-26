@@ -18,6 +18,8 @@ namespace Game
         public EnemyDefinition definition;
         public State state = State.Idle;
 
+        protected Animator mAnimator;
+
         private Vector3 mOriginalPosition;
         private Quaternion mOriginalRotation;
         private NavMeshAgent mNavMeshAgent;
@@ -26,6 +28,7 @@ namespace Game
 
         protected virtual void Awake()
         {
+            mAnimator = GetComponent<Animator>();
             mNavMeshAgent = GetComponent<NavMeshAgent>();
             mOriginalPosition = transform.position;
             mOriginalRotation = transform.rotation;
