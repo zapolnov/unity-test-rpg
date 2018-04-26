@@ -1794,7 +1794,8 @@ MonoBehaviour:
   definition: {fileID: 11400000, guid: 79bfdccd137e82c43be868b4c1722d82, type: 2}
   state: 0
   indicators: {fileID: 1565906750272764}
-  attackDistance: 10
+  approachDistance: 10
+  attackDistance: 2.5
 --- !u!114 &114700217232696122
 MonoBehaviour:
   m_ObjectHideFlags: 1

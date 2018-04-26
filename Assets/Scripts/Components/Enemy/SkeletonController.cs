@@ -6,11 +6,12 @@ namespace Game
     public class SkeletonController : AbstractEnemy
     {
         public GameObject indicators;
+        public float approachDistance;
         public float attackDistance;
 
-        private bool mRunningToPlayer;
-
         private Animator mAnimator;
+        private bool mRunningToPlayer;
+        private bool mAttacking;
 
         void Start()
         {
@@ -25,19 +26,36 @@ namespace Game
                 return;
 
             var player = GameController.Instance.playerController;
-            if ((player.transform.position - transform.position).sqrMagnitude <= attackDistance * attackDistance) {
-                if (!mRunningToPlayer) {
-                    mRunningToPlayer = true;
-                    RunToPlayer();
-                }
+            float sqrDistanceToPlayer = (player.transform.position - transform.position).sqrMagnitude;
+
+            if (mAttacking) {
+                var currentAnim = mAnimator.GetCurrentAnimatorStateInfo(0);
+                if (!currentAnim.IsName("Attack") || currentAnim.normalizedTime >= 1.0f)
+                    mAttacking = false;
             } else {
-                if (mRunningToPlayer) {
-                    mRunningToPlayer = false;
-                    WalkToOriginalPosition();
+                if (sqrDistanceToPlayer <= attackDistance * attackDistance)
+                    mAttacking = true;
+            }
+
+            if (mAttacking) {
+                mRunningToPlayer = false;
+                SetIdle();
+            }  else {
+                if (sqrDistanceToPlayer <= approachDistance * approachDistance) {
+                    if (!mRunningToPlayer) {
+                        mRunningToPlayer = true;
+                        RunToPlayer();
+                    }
+                } else {
+                    if (mRunningToPlayer) {
+                        mRunningToPlayer = false;
+                        WalkToOriginalPosition();
+                    }
                 }
             }
 
             mAnimator.SetFloat("speed", MovingSpeed() * 0.5f);
+            mAnimator.SetBool("attack", mAttacking);
         }
 
         public override void onHit()
