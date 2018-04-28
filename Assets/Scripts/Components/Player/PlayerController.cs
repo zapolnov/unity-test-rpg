@@ -6,13 +6,16 @@ namespace Game
 {
     public class PlayerController : MonoBehaviour
     {
+        public float interactRadius;
+        public AbstractInteractable targetObjectForInteraction;
+
         private Animator mAnimator;
         private Rigidbody mRigidBody;
         private bool mAttacking;
+        private Collider[] mColliderBuffer = new Collider[512];
 
-        void Start()
+        void Awake()
         {
-            GameController.Instance.playerController = this;
             mAnimator = GetComponent<Animator>();
             mRigidBody = GetComponent<Rigidbody>();
             GetComponent<NavMeshAgent>().updateRotation = false;
@@ -20,7 +23,7 @@ namespace Game
 
         void FixedUpdate()
         {
-            if (Input.GetButton("Fire1")) {
+            if (Input.GetButtonDown("Fire1")) {
                 mAttacking = true;
             } else {
                 if (mAttacking) {
@@ -36,13 +39,47 @@ namespace Game
 
             if (mAttacking) {
                 mRigidBody.velocity = new Vector3();
+                targetObjectForInteraction = null;
             } else {
+                // Player movement
                 PlayerDefinition playerDefinition = GameController.Instance.playerDefinition;
                 float x = Input.GetAxis("Horizontal") * playerDefinition.strafeSpeed;
                 float y = Input.GetAxis("Vertical") * playerDefinition.forwardSpeed;
                 Vector3 direction = transform.forward * y + transform.right * x;
                 mRigidBody.velocity = direction;
+
+                // See if player can interact with something
+                int n = Physics.OverlapSphereNonAlloc(transform.position, interactRadius, mColliderBuffer,
+                    -1, QueryTriggerInteraction.Ignore);
+                AbstractInteractable nearestInteractable = null;
+                float nearestDistance = 0.0f;
+                for (int i = 0; i < n; i++) {
+                    GameObject gameObject = mColliderBuffer[i].gameObject;
+                    if (gameObject == this)
+                        continue;
+
+                    AbstractInteractable interactable = gameObject.GetComponent<AbstractInteractable>();
+                    if (interactable != null) {
+                        Vector3 dir = gameObject.transform.position - transform.position;
+
+                        float angle = Vector3.Angle(transform.forward, dir);
+                        if (Mathf.Abs(angle) > 30.0f)
+                            continue;
+
+                        float sqrDistance = dir.sqrMagnitude;
+                        if (nearestInteractable == null || sqrDistance < nearestDistance) {
+                            nearestInteractable = interactable;
+                            nearestDistance = sqrDistance;
+                        }
+                    }
+                }
+
+                targetObjectForInteraction = nearestInteractable;
             }
+
+            // Use
+            if (Input.GetButtonDown("Use") && targetObjectForInteraction != null)
+                targetObjectForInteraction.Interact();
 
             mAnimator.SetFloat("speed", mRigidBody.velocity.magnitude);
             mAnimator.SetBool("attack", mAttacking);
