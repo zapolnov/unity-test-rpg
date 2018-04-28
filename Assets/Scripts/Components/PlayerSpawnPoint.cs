@@ -27,6 +27,8 @@ namespace Game
                 playerTransform.rotation = transform.rotation;
 
                 Destroy(gameObject);
+
+                playerController.gameObject.SetActive(true);
             }
         }
     }

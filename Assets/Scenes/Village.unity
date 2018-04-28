@@ -29617,6 +29617,20 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.505, y: 1.141, z: -0.984}
   m_TimeToStationary: 0.5
+--- !u!114 &2022583745
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2022583742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b01caeb596f8b34685cf7fc82130b32, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightTarget: {fileID: 0}
+  highlightColor: {r: 0, g: 1, b: 0, a: 1}
+  sceneName: Dungeon
 --- !u!1001 &2022735464
 Prefab:
   m_ObjectHideFlags: 0

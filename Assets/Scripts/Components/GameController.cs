@@ -126,6 +126,14 @@ namespace Game
             particleManager.Update();
         }
 
+        public void SwitchToScene(string name)
+        {
+            state = State.Gameplay;
+            playerController.gameObject.SetActive(false);
+            particleManager.Clear();
+            SceneManager.LoadScene(name, LoadSceneMode.Single);
+        }
+
         public void DisplayDialogMessage(string message, AbstractQuestElement next)
         {
             state = State.DialogMessage;

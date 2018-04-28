@@ -9,5 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Village.unity
     guid: 097360f67e94b5b479c0e376797b5cf4
   - enabled: 1
+    path: Assets/Scenes/Dungeon.unity
+    guid: 82d9b90f834cde447ab4e327cd9c0e9c
+  - enabled: 1
     path: Assets/Scenes/Shared.unity
     guid: 659a234fd0fecda4ea2865d1c887e902

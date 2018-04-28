@@ -48,13 +48,15 @@ namespace Game
             {
                 int n = mActive.Count;
                 for (int i = 0; i < n; ) {
-                    if (mActive[i].IsAlive())
+                    if (mActive[i] != null && mActive[i].IsAlive())
                         ++i;
                     else {
                         var particleSystem = mActive[i];
-                        particleSystem.Stop();
-                        particleSystem.gameObject.SetActive(false);
-                        mInactive.Push(particleSystem);
+                        if (particleSystem != null) {
+                            particleSystem.Stop();
+                            particleSystem.gameObject.SetActive(false);
+                            mInactive.Push(particleSystem);
+                        }
 
                         mActive[i] = mActive[n - 1];
                         mActive.RemoveAt(n - 1);
