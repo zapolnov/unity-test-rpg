@@ -1,9 +1,12 @@
 ﻿
 using UnityEngine;
 using UnityEngine.AI;
+using System;
+using System.Collections.Generic;
 
 namespace Game
 {
+    [RequireComponent(typeof(UniqueId))]
     public abstract class AbstractEnemy : MonoBehaviour
     {
         public enum State
@@ -15,10 +18,20 @@ namespace Game
             Dead,
         }
 
+        [Serializable]
+        public struct SavedState
+        {
+            public Vector3 position;
+            public Quaternion rotation;
+            public bool isDead;
+        }
+
         public EnemyDefinition definition;
         public State state = State.Idle;
+        public string UniqueId { get { return mUniqueId.guid; } }
 
         protected Animator mAnimator;
+        protected UniqueId mUniqueId;
 
         private Vector3 mOriginalPosition;
         private Quaternion mOriginalRotation;
@@ -28,17 +41,31 @@ namespace Game
 
         protected virtual void Awake()
         {
+            mUniqueId = GetComponent<UniqueId>();
             mAnimator = GetComponent<Animator>();
             mNavMeshAgent = GetComponent<NavMeshAgent>();
             mOriginalPosition = transform.position;
             mOriginalRotation = transform.rotation;
         }
 
+        protected virtual void Start()
+        {
+            Dictionary<string, AbstractEnemy.SavedState> enemies = GameController.Instance.enemies;
+            if (enemies.ContainsKey(mUniqueId.guid)) {
+                SavedState state = enemies[mUniqueId.guid];
+                if (state.isDead) {
+                    transform.position = state.position;
+                    transform.rotation = state.rotation;
+                    OnDie();
+                }
+            }
+        }
+
         protected virtual void Update()
         {
             switch (state) {
                 case State.Dead:
-                    break;
+                    return;
 
                 case State.Idle:
                     mNavMeshAgent.isStopped = true;
@@ -70,11 +97,22 @@ namespace Game
                     }
                     break;
             }
+
+            UpdateEnemyRegistry();
         }
 
         public abstract void OnHit();
         public abstract void OnDie();
         public abstract bool WeaponColliderIsActive();
+
+        private void UpdateEnemyRegistry()
+        {
+            SavedState s = new SavedState();
+            s.position = transform.position;
+            s.rotation = transform.rotation;
+            s.isDead = (state == State.Dead);
+            GameController.Instance.enemies[mUniqueId.guid] = s;
+        }
 
         protected void LookAt(Vector3 targetPosition)
         {
@@ -110,6 +148,8 @@ namespace Game
             var collider = GetComponent<Collider>();
             if (collider != null)
                 collider.enabled = false;
+
+            UpdateEnemyRegistry();
         }
 
         private void MoveTo(Vector3 destination, float speed, State newState = State.MovingToPosition)

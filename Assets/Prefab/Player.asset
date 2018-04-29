@@ -19,5 +19,5 @@ MonoBehaviour:
   healthMultiplier: 10
   armorMultiplier: 1
   damageMultiplier: 1
-  levelupThreshold: 500
+  baseLevelupThreshold: 500
   levelupThresholdMultiplier: 2

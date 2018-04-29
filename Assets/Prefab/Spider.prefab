@@ -662,6 +662,7 @@ GameObject:
   - component: {fileID: 114644378280573968}
   - component: {fileID: 114014099270911750}
   - component: {fileID: 114229907897093678}
+  - component: {fileID: 114296910736638330}
   m_Layer: 0
   m_Name: Spider
   m_TagString: Untagged
@@ -2282,6 +2283,18 @@ MonoBehaviour:
   indicators: {fileID: 1606828856331494}
   approachDistance: 15
   attackDistance: 2.7
+--- !u!114 &114296910736638330
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1532871047463206}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29d962b755f309a48ad4adbfcaf1b7dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  guid: 
 --- !u!114 &114329433665859890
 MonoBehaviour:
   m_ObjectHideFlags: 1

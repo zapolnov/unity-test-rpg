@@ -1,14 +1,37 @@
 ﻿
 using UnityEngine;
+using System;
+using System.Collections.Generic;
 
 namespace Game
 {
+    [RequireComponent(typeof(UniqueId))]
     public class QuestGiver : AbstractInteractable
     {
+        [Serializable]
+        public struct SavedState
+        {
+            public bool allFinished;
+        }
+
         public GameObject exclamation;
         public Quest quest;
         public AbstractQuestElement startQuestElement;
         public AbstractQuestElement endQuestElement;
+
+        private UniqueId mUniqueId;
+
+        void Start()
+        {
+            mUniqueId = GetComponent<UniqueId>();
+
+            Dictionary<string, QuestGiver.SavedState> questGivers = GameController.Instance.questGivers;
+            if (questGivers.ContainsKey(mUniqueId.guid)) {
+                SavedState state = questGivers[mUniqueId.guid];
+                if (state.allFinished)
+                    endQuestElement = null;
+            }
+        }
 
         void Update()
         {
@@ -41,6 +64,10 @@ namespace Game
             else {
                 endQuestElement.Run();
                 endQuestElement = null;
+
+                SavedState s = new SavedState();
+                s.allFinished = true;
+                GameController.Instance.questGivers[mUniqueId.guid] = s;
             }
         }
     }

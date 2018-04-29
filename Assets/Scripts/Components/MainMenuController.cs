@@ -1,11 +1,12 @@
 ﻿
 using UnityEngine;
+using System;
 
 namespace Game
 {
     public class MainMenuController : MonoBehaviour
     {
-        private bool mInitialized;
+        [NonSerialized] private bool mInitialized;
 
         void Awake()
         {

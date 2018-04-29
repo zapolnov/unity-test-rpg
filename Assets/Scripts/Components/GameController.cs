@@ -43,6 +43,9 @@ namespace Game
         public GameObject deathPanel;
         public GameObject inGameMenu;
         public QuestsPanel questsPanel;
+        public Dictionary<string, QuestGiver.SavedState> questGivers = new Dictionary<string, QuestGiver.SavedState>();
+        public Dictionary<string, AbstractEnemy.SavedState> enemies = new Dictionary<string, AbstractEnemy.SavedState>();
+        public Dictionary<string, Collectible.SavedState> items = new Dictionary<string, Collectible.SavedState>();
         public Dictionary<CollectibleDefinition, int> inventory = new Dictionary<CollectibleDefinition, int>();
         public HashSet<Quest> activeQuests = new HashSet<Quest>();
         public HashSet<Quest> completedQuests = new HashSet<Quest>();
@@ -265,11 +268,11 @@ namespace Game
             playerState.experience += amount;
             notificationsPanel.AddMessage(string.Format("+{0} experience", amount));
 
-            while (playerState.experience >= playerDefinition.levelupThreshold) {
+            while (playerState.experience >= playerState.levelupThreshold) {
                 notificationsPanel.AddMessage("LEVEL UP!!!");
                 playerState.level++;
-                playerDefinition.levelupThreshold =
-                    (int)(playerDefinition.levelupThreshold * playerDefinition.levelupThresholdMultiplier);
+                playerState.levelupThreshold =
+                    (int)(playerState.levelupThreshold * playerDefinition.levelupThresholdMultiplier);
                 playerState.health = playerDefinition.MaxHealth(playerState.level);
             }
         }
@@ -280,6 +283,9 @@ namespace Game
             activeQuests.Clear();
             completedQuests.Clear();
             inventory.Clear();
+            items.Clear();
+            questGivers.Clear();
+            enemies.Clear();
             playerState.Init(playerDefinition);
         }
 

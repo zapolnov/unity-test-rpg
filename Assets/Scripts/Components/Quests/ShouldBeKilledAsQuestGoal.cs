@@ -8,12 +8,12 @@ namespace Game
     {
         public Quest quest;
 
-        void Awake()
+        void Start()
         {
             AbstractEnemy enemy = GetComponent<AbstractEnemy>();
             if (enemy == null)
                 throw new InvalidOperationException("Not an enemy.");
-            quest.enemiesToKill.Add(enemy);
+            quest.enemiesToKill[enemy.UniqueId] = enemy;
         }
     }
 }

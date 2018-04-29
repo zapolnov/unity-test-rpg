@@ -1,12 +1,13 @@
 ﻿
 using UnityEngine;
 using UnityEngine.AI;
+using System;
 
 namespace Game
 {
     public class PlayerSpawnPoint : MonoBehaviour
     {
-        private bool mInitialized;
+        [NonSerialized] private bool mInitialized;
 
         void Awake()
         {

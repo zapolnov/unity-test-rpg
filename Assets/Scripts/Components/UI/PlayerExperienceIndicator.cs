@@ -17,7 +17,7 @@ namespace Game
         {
             var playerState = GameController.Instance.playerState;
             mText.text = string.Format("Level {0}, exp: {1}/{2}", playerState.level, playerState.experience,
-                GameController.Instance.playerDefinition.levelupThreshold);
+                GameController.Instance.playerState.levelupThreshold);
         }
     }
 }
