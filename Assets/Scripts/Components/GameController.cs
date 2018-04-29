@@ -43,6 +43,7 @@ namespace Game
         public GameObject deathPanel;
         public GameObject inGameMenu;
         public QuestsPanel questsPanel;
+        public Dictionary<CollectibleDefinition, int> inventory = new Dictionary<CollectibleDefinition, int>();
         public HashSet<Quest> activeQuests = new HashSet<Quest>();
         public HashSet<Quest> completedQuests = new HashSet<Quest>();
 
@@ -190,6 +191,9 @@ namespace Game
                 activeQuests.Remove(quest);
                 completedQuests.Add(quest);
 
+                foreach (var item in quest.itemsToCollect)
+                    RemoveFromInventory(item);
+
                 notificationsPanel.AddMessage("Quest completed!");
                 GiveExpToPlayer(quest.givesExp);
             }
@@ -239,6 +243,23 @@ namespace Game
             }
         }
 
+        public void AddToInventory(CollectibleDefinition item)
+        {
+            if (inventory.ContainsKey(item))
+                inventory[item]++;
+            else
+                inventory[item] = 1;
+            notificationsPanel.AddMessage(string.Format("Found {0}", item.description));
+        }
+
+        public void RemoveFromInventory(CollectibleDefinition item)
+        {
+            if (inventory.ContainsKey(item))
+                inventory[item]--;
+            else
+                inventory[item] = -1;
+        }
+
         public void GiveExpToPlayer(int amount)
         {
             playerState.experience += amount;
@@ -258,6 +279,7 @@ namespace Game
             particleManager.Clear();
             activeQuests.Clear();
             completedQuests.Clear();
+            inventory.Clear();
             playerState.Init(playerDefinition);
         }
 

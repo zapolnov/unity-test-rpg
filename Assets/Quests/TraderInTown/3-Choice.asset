@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c018e6042253634d8cace36e58440c9, type: 3}
+  m_Name: 3-Choice
+  m_EditorClassIdentifier: 
+  message: Why are you still here?
+  options:
+  - choice: On my way!
+    nextQuestElement: {fileID: 11400000, guid: d61e694da7f47cd43a8582a048adecb6, type: 2}
+  - choice: Why are you so rude?
+    nextQuestElement: {fileID: 11400000, guid: 03c7aa623438716498278a8995f21b83, type: 2}
+  - choice: I am not going anywhere!
+    nextQuestElement: {fileID: 11400000, guid: 03c7aa623438716498278a8995f21b83, type: 2}

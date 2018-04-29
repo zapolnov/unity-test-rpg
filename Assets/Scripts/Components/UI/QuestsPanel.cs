@@ -37,14 +37,14 @@ namespace Game
                 var transform = item.GetComponent<RectTransform>();
                 float height = transform.sizeDelta.y;
 
-                contentSize.y = y + height;
+                contentSize.y = y + height + 5;
                 contentTransform.sizeDelta = contentSize;
 
                 item.transform.SetParent(scrollRect.content.transform, false);
 
-                var pos = transform.localPosition;
+                var pos = transform.anchoredPosition;
                 pos.y = -y;
-                transform.localPosition = pos;
+                transform.anchoredPosition = pos;
 
                 y += height;
             }
