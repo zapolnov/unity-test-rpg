@@ -14,13 +14,13 @@ namespace Game
 
             public MaterialPatcher(GameObject highlightTarget, Color highlightColor)
             {
-                    mRenderer = highlightTarget.GetComponent<Renderer>();
-                    mOriginalMaterials = mRenderer.sharedMaterials;
-                    mPatchedMaterials = new Material[mOriginalMaterials.Length];
-                    for (int i = 0; i < mOriginalMaterials.Length; i++) {
-                        mPatchedMaterials[i] = new Material(mOriginalMaterials[i]);
-                        mPatchedMaterials[i].color = highlightColor;
-                    }
+                mRenderer = highlightTarget.GetComponent<Renderer>();
+                mOriginalMaterials = mRenderer.sharedMaterials;
+                mPatchedMaterials = new Material[mOriginalMaterials.Length];
+                for (int i = 0; i < mOriginalMaterials.Length; i++) {
+                    mPatchedMaterials[i] = new Material(mOriginalMaterials[i]);
+                    mPatchedMaterials[i].color = highlightColor;
+                }
             }
 
             public void SetHighlighted(bool flag)
@@ -39,7 +39,7 @@ namespace Game
 
         void Awake()
         {
-            if (highlightTargets == null)
+            if (highlightTargets == null || highlightTargets.Length == 0)
                 mMaterialPatchers.Add(new MaterialPatcher(gameObject, highlightColor));
             else {
                 foreach (var highlightTarget in highlightTargets)

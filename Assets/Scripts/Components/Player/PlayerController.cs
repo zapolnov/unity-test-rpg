@@ -61,9 +61,10 @@ namespace Game
                     AbstractInteractable interactable = gameObject.GetComponent<AbstractInteractable>();
                     if (interactable != null && interactable.CanInteract()) {
                         Vector3 dir = gameObject.transform.position - transform.position;
+                        dir.y = 0;
 
                         float angle = Vector3.Angle(transform.forward, dir);
-                        if (Mathf.Abs(angle) > 30.0f)
+                        if (Mathf.Abs(angle) > 45.0f)
                             continue;
 
                         float sqrDistance = dir.sqrMagnitude;
