@@ -501,6 +501,7 @@ GameObject:
   - component: {fileID: 223595117138103172}
   - component: {fileID: 114700217232696122}
   - component: {fileID: 114068446505323474}
+  - component: {fileID: 114986886022434310}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -1868,6 +1869,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemy: {fileID: 114666335682268590}
+--- !u!114 &114986886022434310
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1565906750272764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31886d70d9d42c54ba9462e261205e53, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!136 &136540032320612866
 CapsuleCollider:
   m_ObjectHideFlags: 1
