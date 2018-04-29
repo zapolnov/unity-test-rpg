@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using System.Collections.Generic;
 
 namespace Game
 {
@@ -12,6 +13,14 @@ namespace Game
         {
             Gameplay,
             DialogMessage,
+            DialogChoice,
+        }
+
+        [Serializable]
+        public struct DialogChoiceButton
+        {
+            public Button button;
+            public Text text;
         }
 
         public PlayerState playerState = new PlayerState();
@@ -24,6 +33,8 @@ namespace Game
         public HealthIndicator playerHealthIndicator;
         public GameObject dialogMessagePanel;
         public Text dialogMessageText;
+        public GameObject dialogChoicePanel;
+        public DialogChoiceButton[] dialogChoiceButtons;
 
         private AbstractQuestElement mNextQuestElement;
 
@@ -37,9 +48,15 @@ namespace Game
                     switch (mState) {
                         case State.Gameplay:
                             Time.timeScale = 0.0f;
+                            Cursor.lockState = CursorLockMode.None;
+                            Cursor.visible = true;
                             break;
                         case State.DialogMessage:
                             dialogMessagePanel.SetActive(false);
+                            break;
+                        case State.DialogChoice:
+                            dialogMessagePanel.SetActive(false);
+                            dialogChoicePanel.SetActive(false);
                             break;
                     }
 
@@ -48,9 +65,15 @@ namespace Game
                     switch (mState) {
                         case State.Gameplay:
                             Time.timeScale = 1.0f;
+                            Cursor.lockState = CursorLockMode.Locked;
+                            Cursor.visible = false;
                             break;
                         case State.DialogMessage:
                             dialogMessagePanel.SetActive(true);
+                            break;
+                        case State.DialogChoice:
+                            dialogMessagePanel.SetActive(true);
+                            dialogChoicePanel.SetActive(true);
                             break;
                     }
                 }
@@ -95,6 +118,7 @@ namespace Game
             DontDestroyOnLoad(eventSystem);
 
             dialogMessagePanel.SetActive(false);
+            dialogChoicePanel.SetActive(false);
 
             playerState.Init(playerDefinition);
         }
@@ -121,6 +145,9 @@ namespace Game
                             state = State.Gameplay;
                     }
                     break;
+
+                case State.DialogChoice:
+                    break;
             }
 
             particleManager.Update();
@@ -139,6 +166,35 @@ namespace Game
             state = State.DialogMessage;
             mNextQuestElement = next;
             dialogMessageText.text = message;
+        }
+
+        public void DisplayDialogChoice(string message, IList<QuestDialogChoice.Option> options)
+        {
+            state = State.DialogChoice;
+            dialogMessageText.text = message;
+
+            int i = 0;
+            foreach (var option in options) {
+                if (i >= dialogChoiceButtons.Length) {
+                    Debug.LogError("Too many options for quest!");
+                    break;
+                }
+
+                dialogChoiceButtons[i].text.text = option.choice;
+                dialogChoiceButtons[i].button.gameObject.SetActive(true);
+                dialogChoiceButtons[i].button.onClick.RemoveAllListeners();
+                dialogChoiceButtons[i].button.onClick.AddListener(() => {
+                        if (option.nextQuestElement != null)
+                            option.nextQuestElement.Run();
+                        else
+                            state = State.Gameplay;
+                    });
+
+                ++i;
+            }
+
+            while (i < dialogChoiceButtons.Length)
+                dialogChoiceButtons[i++].button.gameObject.SetActive(false);
         }
     }
 }

@@ -9,7 +9,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29a75d96ea12831408d2a598e5f6b8c5, type: 3}
-  m_Name: 1-Welcome
+  m_Name: 3.2-SorryToHear
   m_EditorClassIdentifier: 
-  nextQuestElement: {fileID: 11400000, guid: af2d2620f3cf60f46949d700721c5353, type: 2}
-  message: Hello, stranger!
+  nextQuestElement: {fileID: 0}
+  message: 'Sorry to hear :(
+
+    We are doomed then.'
