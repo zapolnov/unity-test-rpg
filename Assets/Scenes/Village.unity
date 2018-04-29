@@ -43,7 +43,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 11
-  m_GIWorkflowMode: 0
+  m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
     m_BounceScale: 1
@@ -89,7 +89,8 @@ LightmapSettings:
     m_PVRFilteringAtrousPositionSigmaIndirect: 2
     m_PVRFilteringAtrousPositionSigmaAO: 1
     m_ShowResolutionOverlay: 1
-  m_LightingDataAsset: {fileID: 0}
+  m_LightingDataAsset: {fileID: 112000144, guid: 24ee370973ce9c34185cddeab0f01220,
+    type: 2}
   m_UseShadowmask: 1
 --- !u!196 &4
 NavMeshSettings:
@@ -23290,7 +23291,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f11cc84fe094cd45bb7a1a550b79192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightTarget: {fileID: 1298253547}
+  highlightTargets:
+  - {fileID: 1298253547}
   highlightColor: {r: 0, g: 1, b: 0, a: 1}
   exclamation: {fileID: 764497805}
   quest: {fileID: 11400000, guid: 4f51961f07bd9dc4cbac1bcba70a3f35, type: 2}
@@ -38034,7 +38036,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b01caeb596f8b34685cf7fc82130b32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightTarget: {fileID: 0}
+  highlightTargets: []
   highlightColor: {r: 0, g: 1, b: 0, a: 1}
   sceneName: Dungeon
 --- !u!1001 &2022735464

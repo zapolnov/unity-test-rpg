@@ -2252,8 +2252,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f11cc84fe094cd45bb7a1a550b79192, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highlightTarget: {fileID: 1230426104966230}
+  highlightTargets:
+  - {fileID: 1230426104966230}
   highlightColor: {r: 0, g: 1, b: 0, a: 1}
+  exclamation: {fileID: 0}
+  quest: {fileID: 0}
+  startQuestElement: {fileID: 0}
+  endQuestElement: {fileID: 0}
 --- !u!114 &114624571058057456
 MonoBehaviour:
   m_ObjectHideFlags: 1
