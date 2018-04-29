@@ -7,6 +7,7 @@ namespace Game
     public class PlayerController : MonoBehaviour
     {
         public float interactRadius;
+        public new Camera camera;
         public AbstractInteractable targetObjectForInteraction;
 
         private Animator mAnimator;

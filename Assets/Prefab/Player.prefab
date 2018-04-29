@@ -997,6 +997,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   interactRadius: 3
+  camera: {fileID: 20490322887294496}
   targetObjectForInteraction: {fileID: 0}
 --- !u!114 &114813894847064632
 MonoBehaviour:
