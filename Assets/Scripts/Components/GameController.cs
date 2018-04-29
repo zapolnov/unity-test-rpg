@@ -11,7 +11,10 @@ namespace Game
     {
         public enum State
         {
+            MainMenu,
+            InGameMenu,
             Gameplay,
+            PlayerDead,
             DialogMessage,
             DialogChoice,
         }
@@ -36,21 +39,33 @@ namespace Game
         public GameObject dialogChoicePanel;
         public DialogChoiceButton[] dialogChoiceButtons;
         public NotificationsPanel notificationsPanel;
+        public GameObject deathPanel;
+        public GameObject inGameMenu;
 
         private AbstractQuestElement mNextQuestElement;
 
-        private State mState = State.Gameplay;
+        private State mState = State.MainMenu;
         public State state {
                 get { return mState; }
                 private set {
                     if (value == mState)
                         return;
 
+                    // Code to be executed on state leave:
                     switch (mState) {
+                        case State.MainMenu:
+                            hud.SetActive(true);
+                            break;
+                        case State.InGameMenu:
+                            inGameMenu.SetActive(false);
+                            break;
                         case State.Gameplay:
                             Time.timeScale = 0.0f;
                             Cursor.lockState = CursorLockMode.None;
                             Cursor.visible = true;
+                            break;
+                        case State.PlayerDead:
+                            deathPanel.SetActive(false);
                             break;
                         case State.DialogMessage:
                             dialogMessagePanel.SetActive(false);
@@ -63,11 +78,21 @@ namespace Game
 
                     mState = value;
 
+                    // Code to be executed on state enter:
                     switch (mState) {
+                        case State.MainMenu:
+                            hud.SetActive(false);
+                            break;
+                        case State.InGameMenu:
+                            inGameMenu.SetActive(true);
+                            break;
                         case State.Gameplay:
                             Time.timeScale = 1.0f;
                             Cursor.lockState = CursorLockMode.Locked;
                             Cursor.visible = false;
+                            break;
+                        case State.PlayerDead:
+                            deathPanel.SetActive(true);
                             break;
                         case State.DialogMessage:
                             dialogMessagePanel.SetActive(true);
@@ -118,13 +143,13 @@ namespace Game
             DontDestroyOnLoad(hud);
             DontDestroyOnLoad(eventSystem);
 
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-
+            hud.SetActive(false);
+            inGameMenu.SetActive(false);
+            deathPanel.SetActive(false);
             dialogMessagePanel.SetActive(false);
             dialogChoicePanel.SetActive(false);
 
-            playerState.Init(playerDefinition);
+            Restart();
         }
 
         private void OnDestroy()
@@ -138,7 +163,21 @@ namespace Game
         private void Update()
         {
             switch (state) {
+                case State.MainMenu:
+                case State.PlayerDead:
+                case State.DialogChoice:
+                    break;
+
+                case State.InGameMenu:
+                    if (Input.GetButtonDown("Cancel"))
+                        state = State.Gameplay;
+                    break;
+
                 case State.Gameplay:
+                    if (playerState.health <= 0.0f)
+                        state = State.PlayerDead;
+                    if (Input.GetButtonDown("Cancel"))
+                        state = State.InGameMenu;
                     break;
 
                 case State.DialogMessage:
@@ -148,9 +187,6 @@ namespace Game
                         else
                             state = State.Gameplay;
                     }
-                    break;
-
-                case State.DialogChoice:
                     break;
             }
 
@@ -170,13 +206,40 @@ namespace Game
             }
         }
 
-        public void SwitchToScene(string name)
+        private void Restart()
+        {
+            particleManager.Clear();
+            playerState.Init(playerDefinition);
+        }
+
+        public void OnContinueButtonClicked()
         {
             state = State.Gameplay;
+        }
+
+        public void OnRestartButtonClicked()
+        {
+            state = State.Gameplay;
+            Restart();
+            SwitchToScene("Village");
+        }
+
+        public void OnQuitButtonClicked()
+        {
+            state = State.MainMenu;
+            Restart();
+            SwitchToScene("MainMenu");
+        }
+
+        public void SwitchToScene(string name)
+        {
             playerController.gameObject.SetActive(false);
             particleManager.Clear();
             SceneManager.LoadScene(name, LoadSceneMode.Single);
         }
+
+        public void SetMenuState() { state = State.MainMenu; }
+        public void SetGameplayState() { state = State.Gameplay; }
 
         public void DisplayDialogMessage(string message, AbstractQuestElement next)
         {

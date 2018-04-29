@@ -18,6 +18,8 @@ namespace Game
             if (!mInitialized && GameController.IsInitialized()) {
                 mInitialized = true;
 
+                GameController.Instance.SetGameplayState();
+
                 var playerController = GameController.Instance.playerController;
                 var navMeshAgent = playerController.GetComponent<NavMeshAgent>();
                 navMeshAgent.Warp(transform.position);
