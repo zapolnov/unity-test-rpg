@@ -64,10 +64,12 @@ namespace Game
 
             AbstractEnemy enemy = victim.GetComponent<AbstractEnemy>();
             if (enemy != null) {
-                if (health.CurrentHealth() <= 0.0f)
-                    enemy.OnDie();
-                else
+                if (health.CurrentHealth() > 0.0f)
                     enemy.OnHit();
+                else {
+                    GameController.Instance.GiveExpToPlayer(enemy.definition.givesExp);
+                    enemy.OnDie();
+                }
             }
 
             AbstractBloodParticles bloodParticles = victim.GetComponent<AbstractBloodParticles>();

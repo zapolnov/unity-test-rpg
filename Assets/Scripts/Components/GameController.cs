@@ -35,6 +35,7 @@ namespace Game
         public Text dialogMessageText;
         public GameObject dialogChoicePanel;
         public DialogChoiceButton[] dialogChoiceButtons;
+        public NotificationsPanel notificationsPanel;
 
         private AbstractQuestElement mNextQuestElement;
 
@@ -96,7 +97,7 @@ namespace Game
         public static void EnsureInitialized()
         {
             if (mInstance == null)
-                SceneManager.LoadScene("Shared", LoadSceneMode.Additive);
+                SceneManager.LoadScene("UI", LoadSceneMode.Additive);
         }
 
         private void Awake()
@@ -116,6 +117,9 @@ namespace Game
             DontDestroyOnLoad(playerController.gameObject);
             DontDestroyOnLoad(hud);
             DontDestroyOnLoad(eventSystem);
+
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
 
             dialogMessagePanel.SetActive(false);
             dialogChoicePanel.SetActive(false);
@@ -151,6 +155,19 @@ namespace Game
             }
 
             particleManager.Update();
+        }
+
+        public void GiveExpToPlayer(int amount)
+        {
+            playerState.experience += amount;
+            notificationsPanel.AddMessage(string.Format("+{0} experience", amount));
+
+            while (playerState.experience >= playerDefinition.levelupThreshold) {
+                notificationsPanel.AddMessage("LEVEL UP!!!");
+                playerState.level++;
+                playerDefinition.levelupThreshold =
+                    (int)(playerDefinition.levelupThreshold * playerDefinition.levelupThresholdMultiplier);
+            }
         }
 
         public void SwitchToScene(string name)

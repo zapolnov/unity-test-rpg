@@ -15,6 +15,8 @@ namespace Game
         public float healthMultiplier;
         public float armorMultiplier;
         public float damageMultiplier;
+        public int levelupThreshold;
+        public float levelupThresholdMultiplier;
 
         public float MaxHealth(int level) { return baseHealth + healthMultiplier * (level - 1); }
         public float CurrentArmor(int level) { return baseArmor + armorMultiplier * (level - 1); }

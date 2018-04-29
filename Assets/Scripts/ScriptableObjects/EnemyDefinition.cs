@@ -11,6 +11,6 @@ namespace Game
         public float damage;
         public float walkSpeed;
         public float runSpeed;
-        public float givesExp;
+        public int givesExp;
     }
 }
