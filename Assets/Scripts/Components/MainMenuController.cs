@@ -24,5 +24,10 @@ namespace Game
         {
             GameController.Instance.SwitchToScene("Village");
         }
+
+        public void OnQuitButtonClicked()
+        {
+            Application.Quit();
+        }
     }
 }
