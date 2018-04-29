@@ -16,6 +16,6 @@ MonoBehaviour:
     Could you please kill them?'
   options:
   - choice: Sure, piece of cake!
-    nextQuestElement: {fileID: 0}
+    nextQuestElement: {fileID: 11400000, guid: bbfee1ebab84ff2499c42b67cacc2161, type: 2}
   - choice: No, I am scared.
     nextQuestElement: {fileID: 11400000, guid: e345027e32856b14d8c69d05b7572975, type: 2}

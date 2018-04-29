@@ -95,6 +95,11 @@ namespace Game
             mNavMeshAgent.isStopped = true;
         }
 
+        public bool IsDead()
+        {
+            return state == State.Dead;
+        }
+
         public void SetDead()
         {
             state = State.Dead;

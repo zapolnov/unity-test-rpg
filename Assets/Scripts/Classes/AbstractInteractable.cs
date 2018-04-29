@@ -34,6 +34,7 @@ namespace Game
                 mRenderer.sharedMaterials = mOriginalMaterials;
         }
 
+        public virtual bool CanInteract() { return true; }
         public abstract void Interact();
     }
 }

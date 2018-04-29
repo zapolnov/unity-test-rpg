@@ -17,6 +17,7 @@ namespace Game
             PlayerDead,
             DialogMessage,
             DialogChoice,
+            QuestsPanel,
         }
 
         [Serializable]
@@ -41,6 +42,9 @@ namespace Game
         public NotificationsPanel notificationsPanel;
         public GameObject deathPanel;
         public GameObject inGameMenu;
+        public QuestsPanel questsPanel;
+        public HashSet<Quest> activeQuests = new HashSet<Quest>();
+        public HashSet<Quest> completedQuests = new HashSet<Quest>();
 
         private AbstractQuestElement mNextQuestElement;
 
@@ -48,59 +52,10 @@ namespace Game
         public State state {
                 get { return mState; }
                 private set {
-                    if (value == mState)
-                        return;
-
-                    // Code to be executed on state leave:
-                    switch (mState) {
-                        case State.MainMenu:
-                            hud.SetActive(true);
-                            break;
-                        case State.InGameMenu:
-                            inGameMenu.SetActive(false);
-                            break;
-                        case State.Gameplay:
-                            Time.timeScale = 0.0f;
-                            Cursor.lockState = CursorLockMode.None;
-                            Cursor.visible = true;
-                            break;
-                        case State.PlayerDead:
-                            deathPanel.SetActive(false);
-                            break;
-                        case State.DialogMessage:
-                            dialogMessagePanel.SetActive(false);
-                            break;
-                        case State.DialogChoice:
-                            dialogMessagePanel.SetActive(false);
-                            dialogChoicePanel.SetActive(false);
-                            break;
-                    }
-
-                    mState = value;
-
-                    // Code to be executed on state enter:
-                    switch (mState) {
-                        case State.MainMenu:
-                            hud.SetActive(false);
-                            break;
-                        case State.InGameMenu:
-                            inGameMenu.SetActive(true);
-                            break;
-                        case State.Gameplay:
-                            Time.timeScale = 1.0f;
-                            Cursor.lockState = CursorLockMode.Locked;
-                            Cursor.visible = false;
-                            break;
-                        case State.PlayerDead:
-                            deathPanel.SetActive(true);
-                            break;
-                        case State.DialogMessage:
-                            dialogMessagePanel.SetActive(true);
-                            break;
-                        case State.DialogChoice:
-                            dialogMessagePanel.SetActive(true);
-                            dialogChoicePanel.SetActive(true);
-                            break;
+                    if (value != mState) {
+                        OnStateLeave();
+                        mState = value;
+                        OnStateEnter();
                     }
                 }
             }
@@ -144,6 +99,7 @@ namespace Game
             DontDestroyOnLoad(eventSystem);
 
             hud.SetActive(false);
+            questsPanel.gameObject.SetActive(false);
             inGameMenu.SetActive(false);
             deathPanel.SetActive(false);
             dialogMessagePanel.SetActive(false);
@@ -160,8 +116,84 @@ namespace Game
                 mInstance = null;
         }
 
+        private void OnStateEnter()
+        {
+            switch (mState) {
+                case State.MainMenu:
+                    hud.SetActive(false);
+                    break;
+                case State.InGameMenu:
+                    inGameMenu.SetActive(true);
+                    break;
+                case State.Gameplay:
+                    Time.timeScale = 1.0f;
+                    Cursor.lockState = CursorLockMode.Locked;
+                    Cursor.visible = false;
+                    break;
+                case State.PlayerDead:
+                    deathPanel.SetActive(true);
+                    break;
+                case State.DialogMessage:
+                    dialogMessagePanel.SetActive(true);
+                    break;
+                case State.DialogChoice:
+                    dialogMessagePanel.SetActive(true);
+                    dialogChoicePanel.SetActive(true);
+                    break;
+                case State.QuestsPanel:
+                    questsPanel.FillContents();
+                    questsPanel.gameObject.SetActive(true);
+                    break;
+            }
+        }
+
+        private void OnStateLeave()
+        {
+            switch (mState) {
+                case State.MainMenu:
+                    hud.SetActive(true);
+                    break;
+                case State.InGameMenu:
+                    inGameMenu.SetActive(false);
+                    break;
+                case State.Gameplay:
+                    Time.timeScale = 0.0f;
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
+                    break;
+                case State.PlayerDead:
+                    deathPanel.SetActive(false);
+                    break;
+                case State.DialogMessage:
+                    dialogMessagePanel.SetActive(false);
+                    break;
+                case State.DialogChoice:
+                    dialogMessagePanel.SetActive(false);
+                    dialogChoicePanel.SetActive(false);
+                    break;
+                case State.QuestsPanel:
+                    questsPanel.ClearContents();
+                    questsPanel.gameObject.SetActive(false);
+                    break;
+            }
+        }
+
         private void Update()
         {
+            List<Quest> pendingCompletedQuests = new List<Quest>();
+            foreach (var quest in activeQuests) {
+                if (quest.GoalsAchieved())
+                    pendingCompletedQuests.Add(quest);
+            }
+
+            foreach (var quest in pendingCompletedQuests) {
+                activeQuests.Remove(quest);
+                completedQuests.Add(quest);
+
+                notificationsPanel.AddMessage("Quest completed!");
+                GiveExpToPlayer(quest.givesExp);
+            }
+
             switch (state) {
                 case State.MainMenu:
                 case State.PlayerDead:
@@ -173,24 +205,38 @@ namespace Game
                         state = State.Gameplay;
                     break;
 
+                case State.QuestsPanel:
+                    if (Input.GetButtonDown("Quests") || Input.GetButtonDown("Cancel"))
+                        state = State.Gameplay;
+                    break;
+
                 case State.Gameplay:
                     if (playerState.health <= 0.0f)
                         state = State.PlayerDead;
+                    if (Input.GetButtonDown("Quests"))
+                        state = State.QuestsPanel;
                     if (Input.GetButtonDown("Cancel"))
                         state = State.InGameMenu;
                     break;
 
                 case State.DialogMessage:
                     if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Cancel") || Input.GetButtonDown("Fire1")) {
+                        state = State.Gameplay;
                         if (mNextQuestElement)
                             mNextQuestElement.Run();
-                        else
-                            state = State.Gameplay;
                     }
                     break;
             }
 
             particleManager.Update();
+        }
+
+        public void BeginQuest(Quest quest)
+        {
+            if (!activeQuests.Contains(quest) && !completedQuests.Contains(quest)) {
+                activeQuests.Add(quest);
+                notificationsPanel.AddMessage("New quest!");
+            }
         }
 
         public void GiveExpToPlayer(int amount)
@@ -203,12 +249,15 @@ namespace Game
                 playerState.level++;
                 playerDefinition.levelupThreshold =
                     (int)(playerDefinition.levelupThreshold * playerDefinition.levelupThresholdMultiplier);
+                playerState.health = playerDefinition.MaxHealth(playerState.level);
             }
         }
 
         private void Restart()
         {
             particleManager.Clear();
+            activeQuests.Clear();
+            completedQuests.Clear();
             playerState.Init(playerDefinition);
         }
 
@@ -229,6 +278,11 @@ namespace Game
             state = State.MainMenu;
             Restart();
             SwitchToScene("MainMenu");
+        }
+
+        public void OnCloseQuestsPanelButtonClicked()
+        {
+            state = State.Gameplay;
         }
 
         public void SwitchToScene(string name)
@@ -256,7 +310,7 @@ namespace Game
             int i = 0;
             foreach (var option in options) {
                 if (i >= dialogChoiceButtons.Length) {
-                    Debug.LogError("Too many options for quest!");
+                    Debug.LogError("Too many options for the quest!");
                     break;
                 }
 
@@ -264,10 +318,9 @@ namespace Game
                 dialogChoiceButtons[i].button.gameObject.SetActive(true);
                 dialogChoiceButtons[i].button.onClick.RemoveAllListeners();
                 dialogChoiceButtons[i].button.onClick.AddListener(() => {
+                        state = State.Gameplay;
                         if (option.nextQuestElement != null)
                             option.nextQuestElement.Run();
-                        else
-                            state = State.Gameplay;
                     });
 
                 ++i;

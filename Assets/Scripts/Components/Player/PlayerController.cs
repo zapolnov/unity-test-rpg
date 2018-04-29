@@ -59,7 +59,7 @@ namespace Game
                         continue;
 
                     AbstractInteractable interactable = gameObject.GetComponent<AbstractInteractable>();
-                    if (interactable != null) {
+                    if (interactable != null && interactable.CanInteract()) {
                         Vector3 dir = gameObject.transform.position - transform.position;
 
                         float angle = Vector3.Angle(transform.forward, dir);
