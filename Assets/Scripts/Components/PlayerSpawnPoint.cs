@@ -7,6 +7,7 @@ namespace Game
 {
     public class PlayerSpawnPoint : MonoBehaviour
     {
+        public bool isMain;
         [NonSerialized] private bool mInitialized;
 
         void Awake()
@@ -19,9 +20,26 @@ namespace Game
             if (!mInitialized && GameController.IsInitialized()) {
                 mInitialized = true;
 
-                GameController.Instance.SetGameplayState();
+                var gameController = GameController.Instance;
 
-                var playerController = GameController.Instance.playerController;
+                var uniqueId = GetComponent<UniqueId>();
+                if (uniqueId != null) {
+                    if (gameController.returnSpawnPoint != null) {
+                        if (uniqueId.guid != gameController.returnSpawnPoint) {
+                            gameObject.SetActive(false);
+                            return;
+                        }
+                    } else {
+                        if (!isMain) {
+                            gameObject.SetActive(false);
+                            return;
+                        }
+                    }
+                }
+
+                gameController.SetGameplayState();
+
+                var playerController = gameController.playerController;
                 var navMeshAgent = playerController.GetComponent<NavMeshAgent>();
                 navMeshAgent.Warp(transform.position);
 
@@ -29,7 +47,7 @@ namespace Game
                 playerTransform.position = transform.position;
                 playerTransform.rotation = transform.rotation;
 
-                Destroy(gameObject);
+                gameObject.SetActive(false);
 
                 playerController.gameObject.SetActive(true);
             }

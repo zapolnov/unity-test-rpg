@@ -49,6 +49,7 @@ namespace Game
         public Dictionary<CollectibleDefinition, int> inventory = new Dictionary<CollectibleDefinition, int>();
         public HashSet<Quest> activeQuests = new HashSet<Quest>();
         public HashSet<Quest> completedQuests = new HashSet<Quest>();
+        public String returnSpawnPoint = null;
 
         private AbstractQuestElement mNextQuestElement;
 
@@ -64,6 +65,7 @@ namespace Game
                 }
             }
 
+        private static bool mInitializing;
         private static GameController mInstance;
         public static GameController Instance {
                 get {
@@ -80,8 +82,12 @@ namespace Game
 
         public static void EnsureInitialized()
         {
-            if (mInstance == null)
+            if (mInstance == null) {
+                if (mInitializing)
+                    return;
+                mInitializing = true;
                 SceneManager.LoadScene("UI", LoadSceneMode.Additive);
+            }
         }
 
         private void Awake()
@@ -116,8 +122,10 @@ namespace Game
         {
             particleManager.Clear();
 
-            if (mInstance == this)
+            if (mInstance == this) {
                 mInstance = null;
+                mInitializing = false;
+            }
         }
 
         private void OnStateEnter()
@@ -286,6 +294,7 @@ namespace Game
             items.Clear();
             questGivers.Clear();
             enemies.Clear();
+            returnSpawnPoint = null;
             playerState.Init(playerDefinition);
         }
 
@@ -313,8 +322,10 @@ namespace Game
             state = State.Gameplay;
         }
 
-        public void SwitchToScene(string name)
+        public void SwitchToScene(string name, PlayerSpawnPoint returnPoint = null)
         {
+            if (returnPoint != null)
+                returnSpawnPoint = returnPoint.GetComponent<UniqueId>().guid;
             playerController.gameObject.SetActive(false);
             particleManager.Clear();
             SceneManager.LoadScene(name, LoadSceneMode.Single);
