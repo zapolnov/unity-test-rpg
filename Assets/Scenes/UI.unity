@@ -240,6 +240,7 @@ GameObject:
   - component: {fileID: 38622068}
   - component: {fileID: 38622067}
   - component: {fileID: 38622066}
+  - component: {fileID: 38622069}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -316,6 +317,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 38622069}
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &38622067
@@ -351,6 +363,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 38622064}
+--- !u!114 &38622069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 38622064}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fa21e16a71b724da7852dd5b62a433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEvent: event:/ButtonClick
 --- !u!1 &191491807
 GameObject:
   m_ObjectHideFlags: 0
@@ -505,6 +529,7 @@ GameObject:
   - component: {fileID: 267608272}
   - component: {fileID: 267608271}
   - component: {fileID: 267608270}
+  - component: {fileID: 267608273}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -581,6 +606,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 267608273}
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &267608271
@@ -616,6 +652,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 267608268}
+--- !u!114 &267608273
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 267608268}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fa21e16a71b724da7852dd5b62a433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEvent: event:/ButtonClick
 --- !u!1 &442135827
 GameObject:
   m_ObjectHideFlags: 0
@@ -701,6 +749,7 @@ GameObject:
   - component: {fileID: 545641337}
   - component: {fileID: 545641336}
   - component: {fileID: 545641335}
+  - component: {fileID: 545641338}
   m_Layer: 5
   m_Name: ContinueButton
   m_TagString: Untagged
@@ -777,6 +826,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 545641338}
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &545641336
@@ -812,6 +872,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 545641333}
+--- !u!114 &545641338
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 545641333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fa21e16a71b724da7852dd5b62a433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEvent: event:/ButtonClick
 --- !u!1 &576213597
 GameObject:
   m_ObjectHideFlags: 0
@@ -2449,6 +2521,7 @@ MonoBehaviour:
     level: 0
     experience: 0
     health: 0
+    levelupThreshold: 0
   playerDefinition: {fileID: 11400000, guid: b51ea8b5f68981d4aaad4aada0de4f27, type: 2}
   particleManager:
     bloodParticlesPrefab: {fileID: 198074173839814146, guid: 158b95ecf2695864880c5c264c31a69f,
@@ -2479,6 +2552,13 @@ MonoBehaviour:
   deathPanel: {fileID: 1978823412}
   inGameMenu: {fileID: 740341974}
   questsPanel: {fileID: 1380727430}
+  buttonClickSound: event:/ButtonClick
+  levelUpSound: event:/LevelUp
+  playerDeathSound: event:/PlayerDeath
+  newQuestSound: event:/NewQuest
+  questCompleteSound: event:/QuestComplete
+  questListOpenSound: event:/QuestListOpen
+  returnSpawnPoint: 
 --- !u!4 &1329323047
 Transform:
   m_ObjectHideFlags: 0
@@ -2737,6 +2817,7 @@ GameObject:
   - component: {fileID: 1523001728}
   - component: {fileID: 1523001727}
   - component: {fileID: 1523001726}
+  - component: {fileID: 1523001729}
   m_Layer: 5
   m_Name: CloseQuestsButton
   m_TagString: Untagged
@@ -2812,6 +2893,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1523001729}
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1523001727
@@ -2847,6 +2939,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1523001724}
+--- !u!114 &1523001729
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1523001724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fa21e16a71b724da7852dd5b62a433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEvent: event:/ButtonClick
 --- !u!1 &1628957173
 GameObject:
   m_ObjectHideFlags: 0
@@ -3315,6 +3419,7 @@ GameObject:
   - component: {fileID: 1770401630}
   - component: {fileID: 1770401629}
   - component: {fileID: 1770401628}
+  - component: {fileID: 1770401631}
   m_Layer: 5
   m_Name: QuitButton
   m_TagString: Untagged
@@ -3391,6 +3496,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1770401631}
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1770401629
@@ -3426,6 +3542,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1770401626}
+--- !u!114 &1770401631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1770401626}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fa21e16a71b724da7852dd5b62a433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEvent: event:/ButtonClick
 --- !u!1 &1799589717
 GameObject:
   m_ObjectHideFlags: 0
@@ -3798,6 +3926,7 @@ GameObject:
   - component: {fileID: 1976624654}
   - component: {fileID: 1976624653}
   - component: {fileID: 1976624652}
+  - component: {fileID: 1976624655}
   m_Layer: 5
   m_Name: RestartButton
   m_TagString: Untagged
@@ -3874,6 +4003,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1976624655}
+        m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1976624653
@@ -3909,6 +4049,18 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1976624650}
+--- !u!114 &1976624655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1976624650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75fa21e16a71b724da7852dd5b62a433, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  soundEvent: event:/ButtonClick
 --- !u!1 &1978823412
 GameObject:
   m_ObjectHideFlags: 0

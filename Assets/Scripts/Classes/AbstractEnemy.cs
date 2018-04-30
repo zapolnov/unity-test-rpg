@@ -28,6 +28,7 @@ namespace Game
 
         public EnemyDefinition definition;
         public State state = State.Idle;
+        [FMODUnity.EventRef] public string runToPlayerSound;
         public string UniqueId { get { return mUniqueId.guid; } }
 
         protected Animator mAnimator;
@@ -190,7 +191,10 @@ namespace Game
         public void WalkTo(GameObject targetObject) { MoveTo(targetObject, definition.walkSpeed); }
         public void RunTo(GameObject targetObject) { MoveTo(targetObject, definition.runSpeed); }
 
-        public void RunToPlayer() { RunTo(GameController.Instance.playerController.gameObject); }
+        public void RunToPlayer()
+        {
+            RunTo(GameController.Instance.playerController.gameObject);
+        }
 
         public void WalkToOriginalPosition()
         {

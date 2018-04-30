@@ -11,6 +11,7 @@ namespace Game
 
         private bool mRunningToPlayer;
         private bool mAttacking;
+        private bool mSeenPlayer;
 
         protected override void Update()
         {
@@ -37,11 +38,17 @@ namespace Game
                 LookAt(player.transform.position);
             }  else {
                 if (sqrDistanceToPlayer <= approachDistance * approachDistance) {
+                    if (!mSeenPlayer) {
+                        mSeenPlayer = true;
+                        FMODUnity.RuntimeManager.PlayOneShot(runToPlayerSound, transform.position);
+                    }
+
                     if (!mRunningToPlayer) {
                         mRunningToPlayer = true;
                         RunToPlayer();
                     }
                 } else {
+                    mSeenPlayer = false;
                     if (mRunningToPlayer) {
                         mRunningToPlayer = false;
                         WalkToOriginalPosition();

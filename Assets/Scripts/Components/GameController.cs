@@ -43,6 +43,12 @@ namespace Game
         public GameObject deathPanel;
         public GameObject inGameMenu;
         public QuestsPanel questsPanel;
+        [FMODUnity.EventRef] public string buttonClickSound;
+        [FMODUnity.EventRef] public string levelUpSound;
+        [FMODUnity.EventRef] public string playerDeathSound;
+        [FMODUnity.EventRef] public string newQuestSound;
+        [FMODUnity.EventRef] public string questCompleteSound;
+        [FMODUnity.EventRef] public string questListOpenSound;
         public Dictionary<string, QuestGiver.SavedState> questGivers = new Dictionary<string, QuestGiver.SavedState>();
         public Dictionary<string, AbstractEnemy.SavedState> enemies = new Dictionary<string, AbstractEnemy.SavedState>();
         public Dictionary<string, Collectible.SavedState> items = new Dictionary<string, Collectible.SavedState>();
@@ -144,6 +150,7 @@ namespace Game
                     break;
                 case State.PlayerDead:
                     deathPanel.SetActive(true);
+                    FMODUnity.RuntimeManager.PlayOneShot(playerDeathSound);
                     break;
                 case State.DialogMessage:
                     dialogMessagePanel.SetActive(true);
@@ -153,6 +160,7 @@ namespace Game
                     dialogChoicePanel.SetActive(true);
                     break;
                 case State.QuestsPanel:
+                    FMODUnity.RuntimeManager.PlayOneShot(questListOpenSound);
                     questsPanel.FillContents();
                     questsPanel.gameObject.SetActive(true);
                     break;
@@ -205,8 +213,9 @@ namespace Game
                 foreach (var item in quest.itemsToCollect)
                     RemoveFromInventory(item);
 
-                notificationsPanel.AddMessage("Quest completed!");
                 GiveExpToPlayer(quest.givesExp);
+                notificationsPanel.AddMessage("Quest completed!");
+                FMODUnity.RuntimeManager.PlayOneShot(questCompleteSound);
             }
 
             switch (state) {
@@ -251,6 +260,7 @@ namespace Game
             if (!activeQuests.Contains(quest) && !completedQuests.Contains(quest)) {
                 activeQuests.Add(quest);
                 notificationsPanel.AddMessage("New quest!");
+                FMODUnity.RuntimeManager.PlayOneShot(newQuestSound);
             }
         }
 
@@ -277,11 +287,13 @@ namespace Game
             notificationsPanel.AddMessage(string.Format("+{0} experience", amount));
 
             while (playerState.experience >= playerState.levelupThreshold) {
-                notificationsPanel.AddMessage("LEVEL UP!!!");
                 playerState.level++;
                 playerState.levelupThreshold =
                     (int)(playerState.levelupThreshold * playerDefinition.levelupThresholdMultiplier);
                 playerState.health = playerDefinition.MaxHealth(playerState.level);
+
+                notificationsPanel.AddMessage("LEVEL UP!!!");
+                FMODUnity.RuntimeManager.PlayOneShot(levelUpSound);
             }
         }
 
@@ -357,6 +369,7 @@ namespace Game
                 dialogChoiceButtons[i].button.gameObject.SetActive(true);
                 dialogChoiceButtons[i].button.onClick.RemoveAllListeners();
                 dialogChoiceButtons[i].button.onClick.AddListener(() => {
+                        FMODUnity.RuntimeManager.PlayOneShot(buttonClickSound);
                         state = State.Gameplay;
                         if (option.nextQuestElement != null)
                             option.nextQuestElement.Run();

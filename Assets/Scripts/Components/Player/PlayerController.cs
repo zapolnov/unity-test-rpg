@@ -15,6 +15,9 @@ namespace Game
         private bool mAttacking;
         private Collider[] mColliderBuffer = new Collider[512];
 
+        private float mSpeed;
+        public float Speed { get { return mSpeed; } }
+
         void Awake()
         {
             mAnimator = GetComponent<Animator>();
@@ -83,7 +86,8 @@ namespace Game
             if (Input.GetButtonDown("Use") && targetObjectForInteraction != null)
                 targetObjectForInteraction.Interact();
 
-            mAnimator.SetFloat("speed", mRigidBody.velocity.magnitude);
+            mSpeed = mRigidBody.velocity.magnitude;
+            mAnimator.SetFloat("speed", mSpeed);
             mAnimator.SetBool("attack", mAttacking);
         }
 

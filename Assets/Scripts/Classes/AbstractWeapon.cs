@@ -72,10 +72,24 @@ namespace Game
                 }
             }
 
+            Vector3 collisionPosition;
+            Collider collider = victim.GetComponent<Collider>();
+            if (collider == null)
+                collisionPosition = victim.transform.position;
+            else
+                collisionPosition = collider.ClosestPointOnBounds(transform.position);
+
+            DamageSound damageSound = victim.GetComponent<DamageSound>();
+            if (damageSound != null) {
+                if (health.CurrentHealth() > 0.0f)
+                    damageSound.PlayDamageSound(collisionPosition);
+                else
+                    damageSound.PlayDeathSound(collisionPosition);
+            }
+
             AbstractBloodParticles bloodParticles = victim.GetComponent<AbstractBloodParticles>();
             if (bloodParticles != null) {
-                Collider collider = victim.GetComponent<Collider>();
-                bloodParticles.SpawnBloodParticles(collider.ClosestPointOnBounds(transform.position));
+                bloodParticles.SpawnBloodParticles(collisionPosition);
             }
         }
     }
